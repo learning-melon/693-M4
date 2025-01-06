@@ -8,6 +8,7 @@ import bodyParser from 'body-parser'
 const app = express()
 
 app.use(express.static('public')) //to serve static files
+app.use(bodyParser.urlencoded({extended:false})) //to parse form data in post requests
 app.use(bodyParser.json()) //needs to be before routes
 app.use('/', routes)
 

@@ -50,11 +50,12 @@ class EmployeeAdd extends React.Component {
         const form = document.forms.employeeAdd
         const employee = {
             name: form.name.value,
-            ext: form.ext.value,
+            extension: form.ext.value,
             email: form.email.value,
             title: form.title.value,
+            /*no longer needed, as default values already set in the models/Employees.js
             dateHired: new Date(),
-            isEmployed: true,
+            isEmployed: true,*/
         }
         this.props.createEmployee(employee)
         form.name.value = ''
@@ -66,7 +67,7 @@ class EmployeeAdd extends React.Component {
         return (
             <form name="employeeAdd" onSubmit={this.handleSubmit}>
                 Name: <input type="text" name="name" /><br/>
-                Extension: <input type="text" name="ext" /><br/>
+                Extension: <input type="text" name="ext" maxLength={4} /><br/>
                 Email: <input type="text" name="email" /><br/>
                 Title: <input type="text" name="title" /><br/>
                 <button>Add</button>
@@ -98,9 +99,19 @@ class EmployeeList extends React.Component {
             .catch(err => console.log(err))
     }
     createEmployee(employee) {
-        employee.id = this.state.employees.length + 1
-        const newEmployeeList = this.state.employees.slice()
-        newEmployeeList.push(employee)
+        fetch('/api/employees', { 
+            method: 'POST', //since post, will call createEmployee from routes
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(employee)
+        })
+            .then(response => response.json())
+            .then(newEmployee => { //take new employee that was added and add to the list
+                newEmployee.employee.dateHired = new Date(newEmployee.employee.dateHired)
+                const newEmployees = this.state.employees.concat(newEmployee.employee)
+                this.setState({ employees: newEmployees })
+                console.log('Total count of employees:', newEmployees.length)
+            })
+            .catch(err => console.log(err))
         this.setState({ employees: newEmployeeList })
     }
     render() {

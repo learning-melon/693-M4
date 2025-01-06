@@ -32,7 +32,8 @@ const getEmployee = async (req,res) => {
 const createEmployee = async (req,res) => {
     try{
         const employee = await Employee.create(req.body)
-        res.status(200).json({msg: 'Employee added successfully'})
+        res.status(201).json({employee})
+        //res.status(200).json({msg: 'Employee added successfully'})
         //res.send('Create single employee')
     }catch(err){
         res.status(500).json({msg: err})
