@@ -5,6 +5,7 @@ const getAllEmployees = async (req,res) => {
         const employees = await Employee.find({})
        
         res.status(200).json({employees, count: employees.length})
+        //res.status(200).json({employees})
         //res.send('Get all employees')
     }catch(err){
         res.status(500).json({msg:err})
