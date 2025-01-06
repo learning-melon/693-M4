@@ -1,24 +1,3 @@
-const initialEmployees = [
-    {
-        id: 1,
-        name: 'Zak Ruvalcaba',
-        ext: 1124,
-        email: 'zak@vectacorp.com',
-        title: 'Chief Executive Officer',
-        dateHired: new Date('2018-08-15'),
-        isEmployed: true,
-    },
-    {
-        id: 2,
-        name: 'Sally Smith',
-        ext: 1125,
-        email: 'sally@vectacorp.com',
-        title: 'Director of Sales',
-        dateHired: new Date('2015-01-03'),
-        isEmployed: true,
-    },
-]
-
 class EmployeeFilter extends React.Component {
     render() {
         return (<div>This is a placeholder for the employee filter.</div>)
@@ -27,12 +6,11 @@ class EmployeeFilter extends React.Component {
 
 function EmployeeTable(props) {
     const employeeRows = props.employees.map(employee => 
-        <EmployeeRow key={employee.id} employee={employee}/>)
+        <EmployeeRow key={employee._id} employee={employee}/>)
     return (
         <table className="bordered-table">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Extension</th>
                     <th>Email</th>
@@ -52,13 +30,12 @@ function EmployeeRow(props) {
     const employee = props.employee
     return (
         <tr>
-            <td>{employee.id}</td>
             <td>{employee.name}</td>
-            <td>{employee.ext}</td>
+            <td>{employee.extension}</td>
             <td>{employee.email}</td>
             <td>{employee.title}</td>
             <td>{employee.dateHired.toDateString()}</td>
-            <td>{employee.isEmployed ? 'Yes' : 'No'}</td>
+            <td>{employee.currentlyEmployed ? 'Yes' : 'No'}</td>
         </tr>
     )
 }
@@ -108,9 +85,17 @@ class EmployeeList extends React.Component {
         this.loadData()
     }
     loadData() {
-        setTimeout(() => {
-            this.setState({ employees: initialEmployees })
-        }, 500)
+        //load data from db
+        fetch('/api/employees')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Total count of employees:', data.count)
+                data.employees.forEach(employee => {
+                    employee.dateHired = new Date(employee.dateHired)
+                })
+                this.setState({ employees: data.employees })
+            })
+            .catch(err => console.log(err))
     }
     createEmployee(employee) {
         employee.id = this.state.employees.length + 1
