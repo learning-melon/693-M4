@@ -10,9 +10,9 @@ router.route('/api/employees')
     .get(getAllEmployees)        //get all employees
     .post(createEmployee)       //add employee
 
-// router.route('/:id')
+ router.route('/api/employees/:id')
 //     .get(getEmployee)     //get single employee
 //     .patch(updateEmployee)   //update single employee
-//     .delete(deleteEmployee)  //deleting single employee
+     .delete(deleteEmployee)  //deleting single employee
 
 export default router
