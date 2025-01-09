@@ -105,7 +105,7 @@ class EmployeeList extends React.Component {
                 data.employees.forEach(employee => {
                     employee.dateHired = new Date(employee.dateHired)
                 })
-                this.setState({ employees: data.employees })
+                this.setState({ employees: data.employees }) //this will trigger render, as a change in state is detected
             })
             .catch(err => console.log(err))
     }
