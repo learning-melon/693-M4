@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "compile": "babel src --presets @babel/react src --out-dir public",
-    "watch": "babel src --presets @babel/react src --out-dir public --watch --verbose"
+    "compile": "webpack",
+    "watch": "webpack --watch"
   },
   "type": "module",
   "keywords": [],

@@ -1,4 +1,4 @@
-import EmployeeAdd from './EmployeeAdd.js'
+import EmployeeAdd from './EmployeeAdd.jsx'
 
 class EmployeeFilter extends React.Component {
     render() {
