@@ -1,9 +1,11 @@
+import React from 'react'
+
 export default class EmployeeAdd extends React.Component {
     constructor() {
         super()
         this.handleSubmit = this.handleSubmit.bind(this)
     }
-    handleSubmit(e) {
+    handleSubmit(e) { 
         e.preventDefault()
         const form = document.forms.employeeAdd
         const employee = {

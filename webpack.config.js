@@ -11,10 +11,6 @@ const config = {
         filename: 'employees.bundle.js',
         path: path.resolve(__dirname, 'public'),
     },
-    /*commented out because only commenting inside caused errors
-    plugins: {
-        //add any webpack plugins here
-    },*/
     module:{
         rules: [
             {
