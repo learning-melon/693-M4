@@ -1,3 +1,4 @@
+import EmployeeAdd from './EmployeeAdd.js';
 class EmployeeFilter extends React.Component {
   render() {
     return /*#__PURE__*/React.createElement("div", null, "This is a placeholder for the employee filter.");
@@ -21,49 +22,6 @@ function EmployeeRow(props) {
     onClick: onDeleteClick
   }, "DELETE")));
 }
-class EmployeeAdd extends React.Component {
-  constructor() {
-    super();
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  handleSubmit(e) {
-    e.preventDefault();
-    const form = document.forms.employeeAdd;
-    const employee = {
-      name: form.name.value,
-      extension: form.ext.value,
-      email: form.email.value,
-      title: form.title.value
-      /*no longer needed, as default values already set in the models/Employees.js
-      dateHired: new Date(),
-      isEmployed: true,*/
-    };
-    this.props.createEmployee(employee);
-    form.name.value = '';
-    form.ext.value = '';
-    form.email.value = '';
-    form.title.value = '';
-  }
-  render() {
-    return /*#__PURE__*/React.createElement("form", {
-      name: "employeeAdd",
-      onSubmit: this.handleSubmit
-    }, "Name: ", /*#__PURE__*/React.createElement("input", {
-      type: "text",
-      name: "name"
-    }), /*#__PURE__*/React.createElement("br", null), "Extension: ", /*#__PURE__*/React.createElement("input", {
-      type: "text",
-      name: "ext",
-      maxLength: 4
-    }), /*#__PURE__*/React.createElement("br", null), "Email: ", /*#__PURE__*/React.createElement("input", {
-      type: "text",
-      name: "email"
-    }), /*#__PURE__*/React.createElement("br", null), "Title: ", /*#__PURE__*/React.createElement("input", {
-      type: "text",
-      name: "title"
-    }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("button", null, "Add"));
-  }
-}
 class EmployeeList extends React.Component {
   constructor() {
     super();
@@ -85,7 +43,7 @@ class EmployeeList extends React.Component {
       });
       this.setState({
         employees: data.employees
-      });
+      }); //this will trigger render, as a change in state is detected
     }).catch(err => console.log(err));
   }
   createEmployee(employee) {
