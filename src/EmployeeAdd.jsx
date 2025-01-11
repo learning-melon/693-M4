@@ -34,4 +34,4 @@ export default class EmployeeAdd extends React.Component {
             </form>
         )
     }
-}
+}  

@@ -1,4 +1,24 @@
 import React from 'react'
+import EmployeeFilter from './EmployeeFilter.jsx'
+import EmployeeAdd from './EmployeeAdd.jsx'
+
+function EmployeeRow(props) {
+    function onDeleteClick() {
+        props.deleteEmployee(props.employee._id)
+    }
+
+    return (
+        <tr>
+            <td>{props.employee.name}</td>
+            <td>{props.employee.extension}</td>
+            <td>{props.employee.email}</td>
+            <td>{props.employee.title}</td>
+            <td>{props.employee.dateHired.toDateString()}</td>
+            <td>{props.employee.currentlyEmployed ? 'Yes' : 'No'}</td>
+            <td><button onClick={onDeleteClick}>DELETE</button></td>
+        </tr>
+    )
+}
 
 function EmployeeTable(props) {
     const employeeRows = props.employees.map(employee => 
@@ -27,26 +47,7 @@ function EmployeeTable(props) {
     )
 }
 
-function EmployeeRow(props) {
-    
-    function onDeleteClick() {
-        props.deleteEmployee(props.employee._id)
-    }
-
-    return (
-        <tr>
-            <td>{props.employee.name}</td>
-            <td>{props.employee.extension}</td>
-            <td>{props.employee.email}</td>
-            <td>{props.employee.title}</td>
-            <td>{props.employee.dateHired.toDateString()}</td>
-            <td>{props.employee.currentlyEmployed ? 'Yes' : 'No'}</td>
-            <td><button onClick={onDeleteClick}>DELETE</button></td>
-        </tr>
-    )
-}
-
-class EmployeeList extends React.Component {
+export default class EmployeeList extends React.Component {
     constructor() {
         super()
         this.state = { employees: [] }
